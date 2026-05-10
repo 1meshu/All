@@ -234,60 +234,6 @@
             }
         }
 
-        /* 按钮 */
-        .btn-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 13px 28px;
-            border-radius: 50px;
-            font-size: 1.05em;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            border: none;
-            font-family: inherit;
-            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1.2);
-            text-decoration: none;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #e8a0bf, #d4819b);
-            color: #fff;
-            box-shadow: 0 6px 22px rgba(200, 120, 150, 0.4);
-        }
-        .btn-primary:hover {
-            box-shadow: 0 10px 30px rgba(200, 120, 150, 0.55);
-            transform: translateY(-3px) scale(1.03);
-        }
-        .btn-primary:active {
-            transform: scale(0.96);
-            box-shadow: 0 4px 14px rgba(200, 120, 150, 0.35);
-        }
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.7);
-            color: #c75b7a;
-            border: 2px solid #e8c0d0;
-            box-shadow: 0 4px 14px rgba(180, 130, 150, 0.12);
-        }
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.9);
-            border-color: #d4819b;
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 8px 24px rgba(180, 130, 150, 0.22);
-        }
-        .btn-secondary:active {
-            transform: scale(0.96);
-        }
-
         /* 散落小装饰 */
         .sparkle {
             position: absolute;
@@ -324,10 +270,6 @@
             .message {
                 font-size: 1.05em;
                 line-height: 1.8;
-            }
-            .btn {
-                padding: 11px 22px;
-                font-size: 0.95em;
             }
         }
     </style>
@@ -373,24 +315,8 @@
                 愿时光温柔，岁月长留<br>
                 愿您永远健康、幸福、美丽 💕
             </p>
-
-            <!-- 按钮 -->
-            <div class="btn-row">
-                <button class="btn btn-primary" onclick="sendLove()">
-                    💌 给妈妈一个拥抱
-                </button>
-                <button class="btn btn-secondary" onclick="playMusic()">
-                    🎵 播放温馨旋律
-                </button>
-            </div>
         </div>
     </div>
-
-    <!-- 隐藏的音频 -->
-    <audio id="bgMusic" loop preload="none">
-        <!-- 使用公共域免费音频，若无网络则静默 -->
-        <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_c6c8f33e27.mp3" type="audio/mpeg">
-    </audio>
 
     <script>
         // ==================== 花瓣画布 ====================
@@ -407,14 +333,12 @@
         resizeCanvas();
         window.addEventListener('resize', () => {
             resizeCanvas();
-            // 重新初始化花瓣位置范围
             petals.forEach(p => {
                 if (p.x > canvas.width) p.x = Math.random() * canvas.width;
                 if (p.y > canvas.height) p.y = Math.random() * canvas.height;
             });
         });
 
-        // 花瓣颜色：粉色、浅粉、玫瑰色、白色
         const petalColors = [
             '#f4c2d7', '#f8d4e4', '#fadde8', '#fbe8ef',
             '#e8a0bf', '#f0b8cf', '#fce4ec', '#fff0f3',
@@ -438,7 +362,7 @@
                 this.opacity = 0.5 + Math.random() * 0.5;
                 this.rotation = Math.random() * Math.PI * 2;
                 this.rotSpeed = (Math.random() - 0.5) * 0.03;
-                this.shape = Math.random(); // 0-0.5椭圆花瓣, 0.5-1心形花瓣
+                this.shape = Math.random();
             }
             update() {
                 this.y += this.speedY;
@@ -461,17 +385,14 @@
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
                 if (this.shape < 0.55) {
-                    // 椭圆花瓣形状
                     ctx.ellipse(0, 0, this.size * 0.55, this.size * 0.3, 0, 0, Math.PI * 2);
                 } else {
-                    // 小爱心花瓣
                     const s = this.size * 0.5;
                     ctx.moveTo(0, -s * 0.3);
                     ctx.bezierCurveTo(-s * 0.5, -s, -s, s * 0.3, 0, s);
                     ctx.bezierCurveTo(s, s * 0.3, s * 0.5, -s, 0, -s * 0.3);
                 }
                 ctx.fill();
-                // 轻微高光
                 ctx.fillStyle = 'rgba(255,255,255,0.35)';
                 ctx.beginPath();
                 ctx.ellipse(-this.size * 0.12, -this.size * 0.08, this.size * 0.15, this.size * 0.08,
@@ -481,7 +402,6 @@
             }
         }
 
-        // 初始化花瓣
         for (let i = 0; i < maxPetals; i++) {
             petals.push(new Petal());
         }
@@ -505,14 +425,12 @@
 
         let currentLineIndex = 0;
         let charIndex = 0;
-        let isTyping = false;
 
         function typeNextChar() {
             if (currentLineIndex >= lines.length) return;
             const line = lines[currentLineIndex];
             if (charIndex < line.text.length) {
                 line.el.textContent = line.text.substring(0, charIndex + 1);
-                // 添加光标
                 if (charIndex < line.text.length - 1) {
                     line.el.innerHTML = line.text.substring(0, charIndex + 1) +
                         '<span class="cursor"></span>';
@@ -523,17 +441,15 @@
                 const delay = line.speed + (Math.random() - 0.5) * 30;
                 setTimeout(typeNextChar, delay);
             } else {
-                // 当前行完成，去除光标
                 line.el.innerHTML = line.text;
                 charIndex = 0;
                 currentLineIndex++;
                 if (currentLineIndex < lines.length) {
                     setTimeout(typeNextChar, 350);
                 } else {
-                    // 全部打完，最后一行加一个闪烁小光标然后消失
                     const lastEl = lines[lines.length - 1].el;
                     lastEl.innerHTML = lines[lines.length - 1].text +
-                        '<span class="cursor" style="animation: cursorBlink 0.7s step-end infinite 3;"></span>';
+                        '<span class="cursor" style="animation: cursorBlink 0.7s step-end 3;"></span>';
                     setTimeout(() => {
                         lastEl.innerHTML = lines[lines.length - 1].text;
                     }, 2100);
@@ -541,79 +457,9 @@
             }
         }
 
-        // 页面加载后稍作延迟开始打字
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(typeNextChar, 600);
         });
-
-        // ==================== 按钮交互 ====================
-        function sendLove() {
-            const btn = document.querySelector('.btn-primary');
-            const originalText = btn.textContent;
-            btn.textContent = '💗 拥抱已送达！';
-            btn.style.background = 'linear-gradient(135deg, #f0b8cf, #e8879e)';
-            btn.style.transform = 'scale(1.08)';
-            // 绽放一波花瓣
-            burstPetals();
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = 'linear-gradient(135deg, #e8a0bf, #d4819b)';
-                btn.style.transform = '';
-            }, 2200);
-        }
-
-        function burstPetals() {
-            const burstCount = 20;
-            for (let i = 0; i < burstCount; i++) {
-                const p = new Petal();
-                p.x = canvas.width / 2 + (Math.random() - 0.5) * 200;
-                p.y = canvas.height / 2 + (Math.random() - 0.5) * 100;
-                p.speedY = -2 - Math.random() * 5;
-                p.speedX = (Math.random() - 0.5) * 6;
-                p.size = 10 + Math.random() * 18;
-                p.opacity = 0.8;
-                p.wobbleAmp = 1.5 + Math.random() * 2;
-                petals.push(p);
-                // 限制总量
-                if (petals.length > maxPetals + 60) {
-                    petals.shift();
-                }
-            }
-        }
-
-        function playMusic() {
-            const audio = document.getElementById('bgMusic');
-            const btn = document.querySelector('.btn-secondary');
-            if (audio.paused) {
-                audio.play().then(() => {
-                    btn.innerHTML = '🎶 旋律播放中...';
-                    btn.style.borderColor = '#d4819b';
-                    btn.style.color = '#d4819b';
-                }).catch(() => {
-                    // 自动播放被阻止，静默处理
-                    btn.innerHTML = '🔇 请点击页面后再试';
-                    setTimeout(() => {
-                        btn.innerHTML = '🎵 播放温馨旋律';
-                        btn.style.borderColor = '#e8c0d0';
-                        btn.style.color = '#c75b7a';
-                    }, 1800);
-                });
-            } else {
-                audio.pause();
-                audio.currentTime = 0;
-                btn.innerHTML = '🎵 播放温馨旋律';
-                btn.style.borderColor = '#e8c0d0';
-                btn.style.color = '#c75b7a';
-            }
-        }
-
-        // 用户首次交互后尝试自动播放
-        document.addEventListener('click', function autoPlayOnce() {
-            const audio = document.getElementById('bgMusic');
-            if (audio.paused && audio.currentTime === 0) {
-                audio.play().catch(() => {});
-            }
-        }, { once: true });
 
         // ==================== 卡片悬停微交互 ====================
         const card = document.getElementById('card');
@@ -626,7 +472,7 @@
             const rotateX = ((y - centerY) / centerY) * -3;
             const rotateY = ((x - centerX) / centerX) * 3;
             card.style.transform =
-                `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+                `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
             card.style.transition = 'transform 0.15s ease-out';
         });
         card.addEventListener('mouseleave', () => {
