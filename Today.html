@@ -1,9 +1,12 @@
+这是为您调整为“儿子写给母亲”口吻的母亲节祝福页面，文案更贴近儿子的感恩与爱意，所有视觉设计保持不变。
+
+```html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💐 母亲节快乐 - 致最爱的妈妈</title>
+    <title>💐 母亲节快乐 - 儿子献给您</title>
     <style>
         :root {
             --rose: #e8a0bf;
@@ -31,7 +34,6 @@
             position: relative;
         }
 
-        /* 花瓣画布 */
         #petalsCanvas {
             position: fixed;
             top: 0;
@@ -42,7 +44,6 @@
             z-index: 1;
         }
 
-        /* 主容器 */
         .main-container {
             position: relative;
             z-index: 10;
@@ -53,7 +54,6 @@
             padding: 40px 20px;
         }
 
-        /* 卡片 */
         .card {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(18px);
@@ -98,7 +98,6 @@
             }
         }
 
-        /* 顶部装饰花束 */
         .flower-bouquet {
             font-size: 70px;
             line-height: 1;
@@ -126,7 +125,6 @@
             }
         }
 
-        /* 标题 */
         .title {
             font-size: 2.6em;
             font-weight: bold;
@@ -166,7 +164,6 @@
             font-style: italic;
         }
 
-        /* 分割线 */
         .divider {
             display: flex;
             align-items: center;
@@ -189,7 +186,6 @@
             opacity: 0.7;
         }
 
-        /* 祝福正文 */
         .message {
             font-size: 1.2em;
             line-height: 2;
@@ -206,7 +202,6 @@
             white-space: nowrap;
         }
 
-        /* 打字机效果 */
         .typewriter-line {
             display: block;
             margin: 6px 0;
@@ -234,7 +229,6 @@
             }
         }
 
-        /* 按钮 */
         .btn-row {
             display: flex;
             flex-wrap: wrap;
@@ -288,7 +282,6 @@
             transform: scale(0.96);
         }
 
-        /* 散落小装饰 */
         .sparkle {
             position: absolute;
             pointer-events: none;
@@ -309,7 +302,15 @@
             }
         }
 
-        /* 响应式 */
+        .signature {
+            font-size: 1.1em;
+            color: #c75b7a;
+            font-style: italic;
+            letter-spacing: 0.06em;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
         @media (max-width: 600px) {
             .card {
                 padding: 35px 22px 30px;
@@ -334,13 +335,10 @@
 </head>
 <body>
 
-    <!-- 花瓣飘落画布 -->
     <canvas id="petalsCanvas"></canvas>
 
-    <!-- 主内容 -->
     <div class="main-container">
         <div class="card" id="card">
-            <!-- 散落小星星装饰 -->
             <span class="sparkle" style="top:8%;left:8%;animation-delay:0s;">✨</span>
             <span class="sparkle" style="top:12%;right:10%;animation-delay:0.8s;">🌸</span>
             <span class="sparkle" style="bottom:18%;left:12%;animation-delay:1.6s;">💫</span>
@@ -348,21 +346,17 @@
             <span class="sparkle" style="top:40%;left:5%;animation-delay:0.4s;font-size:15px;">🌟</span>
             <span class="sparkle" style="top:45%;right:6%;animation-delay:2.8s;font-size:16px;">💖</span>
 
-            <!-- 花束 -->
             <div class="flower-bouquet">💐</div>
 
-            <!-- 标题 -->
             <h1 class="title">
-                母亲节<span class="accent">❤️</span>快乐
+                妈妈，母亲节<span class="accent">❤️</span>快乐
             </h1>
-            <p class="subtitle">—— 致世界上最好的妈妈 ——</p>
+            <p class="subtitle">—— 儿子献给最爱的母亲 ——</p>
 
-            <!-- 分割线 -->
             <div class="divider">
                 <span class="line"></span><span class="dot"></span><span class="line"></span>
             </div>
 
-            <!-- 祝福语 -->
             <div class="message">
                 <span class="typewriter-line" id="line1"></span>
                 <span class="typewriter-line" id="line2"></span>
@@ -373,8 +367,8 @@
                 愿时光温柔，岁月长留<br>
                 愿您永远健康、幸福、美丽 💕
             </p>
+            <p class="signature">—— 永远爱您的儿子</p>
 
-            <!-- 按钮 -->
             <div class="btn-row">
                 <button class="btn btn-primary" onclick="sendLove()">
                     💌 给妈妈一个拥抱
@@ -386,9 +380,7 @@
         </div>
     </div>
 
-    <!-- 隐藏的音频 -->
     <audio id="bgMusic" loop preload="none">
-        <!-- 使用公共域免费音频，若无网络则静默 -->
         <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_c6c8f33e27.mp3" type="audio/mpeg">
     </audio>
 
@@ -407,14 +399,12 @@
         resizeCanvas();
         window.addEventListener('resize', () => {
             resizeCanvas();
-            // 重新初始化花瓣位置范围
             petals.forEach(p => {
                 if (p.x > canvas.width) p.x = Math.random() * canvas.width;
                 if (p.y > canvas.height) p.y = Math.random() * canvas.height;
             });
         });
 
-        // 花瓣颜色：粉色、浅粉、玫瑰色、白色
         const petalColors = [
             '#f4c2d7', '#f8d4e4', '#fadde8', '#fbe8ef',
             '#e8a0bf', '#f0b8cf', '#fce4ec', '#fff0f3',
@@ -438,7 +428,7 @@
                 this.opacity = 0.5 + Math.random() * 0.5;
                 this.rotation = Math.random() * Math.PI * 2;
                 this.rotSpeed = (Math.random() - 0.5) * 0.03;
-                this.shape = Math.random(); // 0-0.5椭圆花瓣, 0.5-1心形花瓣
+                this.shape = Math.random();
             }
             update() {
                 this.y += this.speedY;
@@ -461,17 +451,14 @@
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
                 if (this.shape < 0.55) {
-                    // 椭圆花瓣形状
                     ctx.ellipse(0, 0, this.size * 0.55, this.size * 0.3, 0, 0, Math.PI * 2);
                 } else {
-                    // 小爱心花瓣
                     const s = this.size * 0.5;
                     ctx.moveTo(0, -s * 0.3);
                     ctx.bezierCurveTo(-s * 0.5, -s, -s, s * 0.3, 0, s);
                     ctx.bezierCurveTo(s, s * 0.3, s * 0.5, -s, 0, -s * 0.3);
                 }
                 ctx.fill();
-                // 轻微高光
                 ctx.fillStyle = 'rgba(255,255,255,0.35)';
                 ctx.beginPath();
                 ctx.ellipse(-this.size * 0.12, -this.size * 0.08, this.size * 0.15, this.size * 0.08,
@@ -481,7 +468,6 @@
             }
         }
 
-        // 初始化花瓣
         for (let i = 0; i < maxPetals; i++) {
             petals.push(new Petal());
         }
@@ -496,23 +482,21 @@
         }
         animatePetals();
 
-        // ==================== 打字机效果 ====================
+        // ==================== 打字机效果（儿子口吻） ====================
         const lines = [
             { el: document.getElementById('line1'), text: '亲爱的妈妈，感谢您给予我生命，', speed: 55 },
-            { el: document.getElementById('line2'), text: '用无尽的爱陪伴我走过每一个春夏秋冬。', speed: 50 },
+            { el: document.getElementById('line2'), text: '用无尽的爱陪伴儿子走过每一个春夏秋冬。', speed: 50 },
             { el: document.getElementById('line3'), text: '在这个特别的日子里，我想对您说……', speed: 52 },
         ];
 
         let currentLineIndex = 0;
         let charIndex = 0;
-        let isTyping = false;
 
         function typeNextChar() {
             if (currentLineIndex >= lines.length) return;
             const line = lines[currentLineIndex];
             if (charIndex < line.text.length) {
                 line.el.textContent = line.text.substring(0, charIndex + 1);
-                // 添加光标
                 if (charIndex < line.text.length - 1) {
                     line.el.innerHTML = line.text.substring(0, charIndex + 1) +
                         '<span class="cursor"></span>';
@@ -523,14 +507,12 @@
                 const delay = line.speed + (Math.random() - 0.5) * 30;
                 setTimeout(typeNextChar, delay);
             } else {
-                // 当前行完成，去除光标
                 line.el.innerHTML = line.text;
                 charIndex = 0;
                 currentLineIndex++;
                 if (currentLineIndex < lines.length) {
                     setTimeout(typeNextChar, 350);
                 } else {
-                    // 全部打完，最后一行加一个闪烁小光标然后消失
                     const lastEl = lines[lines.length - 1].el;
                     lastEl.innerHTML = lines[lines.length - 1].text +
                         '<span class="cursor" style="animation: cursorBlink 0.7s step-end infinite 3;"></span>';
@@ -541,19 +523,16 @@
             }
         }
 
-        // 页面加载后稍作延迟开始打字
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(typeNextChar, 600);
         });
 
-        // ==================== 按钮交互 ====================
         function sendLove() {
             const btn = document.querySelector('.btn-primary');
             const originalText = btn.textContent;
-            btn.textContent = '💗 拥抱已送达！';
+            btn.textContent = '💗 儿子的拥抱已送达！';
             btn.style.background = 'linear-gradient(135deg, #f0b8cf, #e8879e)';
             btn.style.transform = 'scale(1.08)';
-            // 绽放一波花瓣
             burstPetals();
             setTimeout(() => {
                 btn.textContent = originalText;
@@ -574,7 +553,6 @@
                 p.opacity = 0.8;
                 p.wobbleAmp = 1.5 + Math.random() * 2;
                 petals.push(p);
-                // 限制总量
                 if (petals.length > maxPetals + 60) {
                     petals.shift();
                 }
@@ -590,7 +568,6 @@
                     btn.style.borderColor = '#d4819b';
                     btn.style.color = '#d4819b';
                 }).catch(() => {
-                    // 自动播放被阻止，静默处理
                     btn.innerHTML = '🔇 请点击页面后再试';
                     setTimeout(() => {
                         btn.innerHTML = '🎵 播放温馨旋律';
@@ -607,7 +584,6 @@
             }
         }
 
-        // 用户首次交互后尝试自动播放
         document.addEventListener('click', function autoPlayOnce() {
             const audio = document.getElementById('bgMusic');
             if (audio.paused && audio.currentTime === 0) {
@@ -615,7 +591,6 @@
             }
         }, { once: true });
 
-        // ==================== 卡片悬停微交互 ====================
         const card = document.getElementById('card');
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -634,11 +609,11 @@
             card.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
         });
 
-        // ==================== 控制台彩蛋 ====================
-        console.log('%c🌸 母亲节快乐！%c 愿天下所有妈妈都被时光温柔以待 💕',
+        console.log('%c🌸 母亲节快乐！%c 儿子祝天下所有妈妈都被时光温柔以待 💕',
             'font-size:22px;color:#c75b7a;', 'font-size:14px;color:#8b6b7a;');
-        console.log('%c  感谢您打开这个页面，记得给妈妈打个电话哦~ 📞',
+        console.log('%c  妈，儿子永远爱您~ 记得给妈妈打个电话哦 📞',
             'font-size:13px;color:#b07a8c;');
     </script>
 </body>
 </html>
+```
