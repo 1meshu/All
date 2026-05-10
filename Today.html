@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>妈妈，母亲节快乐</title>
+    <title>💐 母亲节快乐 - 致最爱的妈妈</title>
     <style>
         :root {
-            --rose: #e8a0b8;
-            --rose-light: #f7d6e0;
-            --cream: #fef9f4;
-            --gold: #c8976e;
-            --text: #4a3340;
-            --text-light: #6b5562;
-            --white: #ffffff;
-            --shadow: 0 8px 32px rgba(180, 140, 150, 0.18);
-            --shadow-lg: 0 20px 60px rgba(180, 140, 150, 0.25);
+            --rose: #e8a0bf;
+            --rose-dark: #c77d9f;
+            --pink-light: #fce4ec;
+            --cream: #fff9f5;
+            --gold: #d4a574;
+            --text: #5d3a4a;
+            --text-light: #8b6b7a;
         }
 
         * {
@@ -24,515 +22,623 @@
         }
 
         body {
-            font-family: 'Georgia', 'Noto Serif SC', 'STSong', 'Songti SC', 'SimSun', 'KaiTi', serif;
-            background: linear-gradient(175deg, #fef5f0 0%, #fdf0e8 15%, #fef7f3 30%, #fef9f6 50%, #fdf3ed 70%, #fef8f4 85%, #fef5f0 100%);
+            font-family: 'Georgia', 'Noto Serif SC', 'STSong', 'Songti SC', 'KaiTi', '楷体', 'SimSun', '宋体', serif;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            background: linear-gradient(160deg, #fdf2f7 0%, #fce4ec 25%, #f8d8e4 50%, #fdf2f7 75%, #fff5f0 100%);
+            background-attachment: fixed;
             overflow-x: hidden;
+            cursor: default;
             position: relative;
-            -webkit-font-smoothing: antialiased;
         }
 
-        /* ---- 花瓣飘落 ---- */
-        .petals-container {
+        /* 花瓣画布 */
+        #petalsCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .petal {
-            position: absolute;
-            top: -60px;
-            border-radius: 50% 0 50% 50%;
-            opacity: 0;
-            animation: fall linear infinite;
-            will-change: transform, opacity;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(-60px) rotate(0deg) translateX(0px);
-                opacity: 0;
-            }
-            3% {
-                opacity: 0.75;
-            }
-            50% {
-                opacity: 0.6;
-                transform: translateY(40vh) rotate(220deg) translateX(40px);
-            }
-            85% {
-                opacity: 0.45;
-            }
-            100% {
-                transform: translateY(105vh) rotate(400deg) translateX(-25px);
-                opacity: 0;
-            }
-        }
-
-        @keyframes fallB {
-            0% {
-                transform: translateY(-60px) rotate(0deg) translateX(0px);
-                opacity: 0;
-            }
-            3% {
-                opacity: 0.7;
-            }
-            50% {
-                opacity: 0.55;
-                transform: translateY(35vh) rotate(-200deg) translateX(-50px);
-            }
-            85% {
-                opacity: 0.4;
-            }
-            100% {
-                transform: translateY(105vh) rotate(-380deg) translateX(30px);
-                opacity: 0;
-            }
-        }
-
-        /* ---- 主容器 ---- */
-        .main-wrapper {
-            position: relative;
             z-index: 1;
+        }
+
+        /* 主容器 */
+        .main-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* 卡片 */
+        .card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 28px;
+            padding: 50px 40px 45px;
+            max-width: 620px;
             width: 100%;
-            max-width: 700px;
-        }
-
-        /* ---- 信封样式卡片 ---- */
-        .card-envelope {
-            background: var(--white);
-            border-radius: 20px 20px 24px 24px;
-            box-shadow: var(--shadow-lg);
-            padding: 0;
-            overflow: hidden;
+            box-shadow:
+                0 8px 40px rgba(180, 120, 140, 0.18),
+                0 2px 12px rgba(180, 120, 140, 0.10),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+            text-align: center;
+            animation: cardFloat 5s ease-in-out infinite;
             position: relative;
+            overflow: visible;
         }
 
-        /* 顶部封口装饰 */
-        .envelope-flap {
-            background: linear-gradient(135deg, #f2d5dd 0%, #fbe8ef 40%, #f5d8e2 100%);
-            height: 90px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 20px 20px 0 0;
-        }
-
-        .flap-triangle {
+        .card::before {
+            content: '';
             position: absolute;
-            bottom: -28px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 38px solid transparent;
-            border-right: 38px solid transparent;
-            border-top: 32px solid #f2d5dd;
-            z-index: 2;
+            top: -3px;
+            left: 30px;
+            right: 30px;
+            height: 60px;
+            border-radius: 30px 30px 0 0;
+            background: linear-gradient(180deg, rgba(232, 160, 191, 0.25) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: -1;
         }
 
-        .seal-heart {
-            position: absolute;
-            bottom: -22px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 3;
-            width: 48px;
-            height: 48px;
-            background: radial-gradient(circle at 35% 30%, #f9c9d5, #e892a6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 16px rgba(220, 130, 150, 0.45);
-            animation: sealPulse 2.6s ease-in-out infinite;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            user-select: none;
-        }
-
-        .seal-heart:hover {
-            transform: translateX(-50%) scale(1.12);
-        }
-        .seal-heart:active {
-            transform: translateX(-50%) scale(0.94);
-        }
-
-        .seal-heart span {
-            font-size: 22px;
-            line-height: 1;
-            color: #fff;
-            text-shadow: 0 1px 2px rgba(180, 80, 100, 0.3);
-            animation: heartBeat 1.2s ease-in-out infinite;
-        }
-
-        @keyframes sealPulse {
+        @keyframes cardFloat {
             0%,
             100% {
-                box-shadow: 0 4px 16px rgba(220, 130, 150, 0.45);
-            }
-            50% {
-                box-shadow: 0 6px 28px rgba(220, 130, 150, 0.7), 0 0 0 16px rgba(240, 180, 195, 0.18);
-            }
-        }
-
-        @keyframes heartBeat {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-            15% {
-                transform: scale(1.26);
+                transform: translateY(0);
             }
             30% {
-                transform: scale(1);
-            }
-            45% {
-                transform: scale(1.18);
+                transform: translateY(-8px);
             }
             60% {
+                transform: translateY(-3px);
+            }
+        }
+
+        /* 顶部装饰花束 */
+        .flower-bouquet {
+            font-size: 70px;
+            line-height: 1;
+            margin-bottom: 6px;
+            animation: bouquetBounce 2.5s ease-in-out infinite;
+            display: inline-block;
+            filter: drop-shadow(0 4px 12px rgba(200, 140, 160, 0.35));
+        }
+        @keyframes bouquetBounce {
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+            20% {
+                transform: translateY(-16px) scale(1.06);
+            }
+            40% {
+                transform: translateY(0) scale(1);
+            }
+            55% {
+                transform: translateY(-7px) scale(1.03);
+            }
+            70% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* 标题 */
+        .title {
+            font-size: 2.6em;
+            font-weight: bold;
+            color: #c75b7a;
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 8px rgba(199, 91, 122, 0.2);
+            line-height: 1.3;
+        }
+        .title .accent {
+            color: #e8879e;
+            font-size: 1.1em;
+            display: inline-block;
+            animation: heartPulse 1.3s ease-in-out infinite;
+        }
+        @keyframes heartPulse {
+            0%,
+            100% {
                 transform: scale(1);
             }
+            25% {
+                transform: scale(1.18);
+            }
+            50% {
+                transform: scale(1);
+            }
+            75% {
+                transform: scale(1.1);
+            }
         }
 
-        /* ---- 卡片主体内容 ---- */
-        .card-body {
-            padding: 40px 32px 36px;
-            text-align: center;
-            position: relative;
-            background: var(--white);
-            border-radius: 0 0 24px 24px;
-        }
-
-        /* 装饰水印花纹 */
-        .card-body::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            right: 24px;
-            width: 90px;
-            height: 90px;
-            background: radial-gradient(ellipse at center, rgba(240, 200, 210, 0.22) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-        .card-body::after {
-            content: '';
-            position: absolute;
-            bottom: 30px;
-            left: 20px;
-            width: 70px;
-            height: 70px;
-            background: radial-gradient(ellipse at center, rgba(235, 185, 155, 0.16) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .subtitle-tag {
-            display: inline-block;
-            font-size: 0.85rem;
-            letter-spacing: 0.16em;
-            color: #c4876b;
-            background: rgba(245, 215, 210, 0.5);
-            padding: 6px 18px;
-            border-radius: 20px;
-            margin-bottom: 16px;
-            font-family: 'Georgia', 'Noto Serif SC', serif;
-        }
-
-        .title-main {
-            font-size: 2.2rem;
-            color: #b85a6e;
-            font-weight: normal;
-            letter-spacing: 0.05em;
-            margin-bottom: 6px;
-            position: relative;
-            z-index: 1;
-            line-height: 1.35;
-        }
-
-        .title-sub {
-            font-size: 1.05rem;
-            color: #b8947e;
+        .subtitle {
+            font-size: 1.15em;
+            color: #b07a8c;
             letter-spacing: 0.08em;
             margin-bottom: 28px;
-            position: relative;
-            z-index: 1;
+            font-style: italic;
         }
 
+        /* 分割线 */
         .divider {
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #e0c0c8, transparent);
-            margin: 0 auto 26px;
-            border-radius: 2px;
-        }
-
-        /* 祝福段落 */
-        .message-block {
-            text-align: left;
-            line-height: 2;
-            color: var(--text);
-            font-size: 1.02rem;
-            letter-spacing: 0.03em;
-            position: relative;
-            z-index: 1;
-            max-width: 540px;
-            margin: 0 auto;
-        }
-
-        .message-block p {
-            margin-bottom: 16px;
-            text-indent: 2em;
-            color: #4a3340;
-        }
-
-        .message-block .highlight {
-            color: #c4687a;
-            font-weight: bold;
-            background: linear-gradient(180deg, transparent 60%, rgba(248, 210, 218, 0.55) 60%);
-            padding: 0 2px;
-        }
-
-        .message-block .memory-line {
-            display: block;
-            padding: 10px 16px;
-            margin: 8px 0 14px;
-            background: rgba(253, 242, 240, 0.6);
-            border-left: 3px solid #e8b8c2;
-            border-radius: 0 10px 10px 0;
-            font-style: italic;
-            color: #6b4e58;
-            text-indent: 0;
-            font-size: 0.96rem;
-            line-height: 1.7;
-        }
-
-        .signature {
-            text-align: right;
-            margin-top: 28px;
-            font-size: 1.1rem;
-            color: #b85a6e;
-            letter-spacing: 0.06em;
-            position: relative;
-            z-index: 1;
-            font-style: italic;
-        }
-
-        .signature .heart-icon {
-            display: inline-block;
-            animation: heartBeat 1.2s ease-in-out infinite;
-            color: #d4748a;
-            font-style: normal;
-        }
-
-        /* 底部小花装饰 */
-        .bottom-decor {
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 14px;
-            margin-top: 22px;
-            position: relative;
-            z-index: 1;
-            font-size: 1.5rem;
+            gap: 12px;
+            margin: 10px 0 24px;
+        }
+        .divider .line {
+            height: 1.5px;
+            flex: 1;
+            max-width: 90px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, transparent, #e8a0bf, transparent);
+        }
+        .divider .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #e8a0bf;
             opacity: 0.7;
-            letter-spacing: 6px;
-            color: #dbb8b0;
         }
 
-        /* ---- 响应式 ---- */
+        /* 祝福正文 */
+        .message {
+            font-size: 1.2em;
+            line-height: 2;
+            color: #5d3a4a;
+            letter-spacing: 0.04em;
+            margin-bottom: 28px;
+            text-align: center;
+        }
+        .message .highlight {
+            color: #c75b7a;
+            font-weight: bold;
+            background: linear-gradient(180deg, transparent 60%, rgba(232, 160, 191, 0.25) 60%);
+            padding: 0 4px;
+            white-space: nowrap;
+        }
+
+        /* 打字机效果 */
+        .typewriter-line {
+            display: block;
+            margin: 6px 0;
+            color: #7a5565;
+            font-size: 1.05em;
+            letter-spacing: 0.05em;
+            min-height: 1.6em;
+        }
+        .typewriter-line .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.1em;
+            background: #c75b7a;
+            margin-left: 3px;
+            vertical-align: text-bottom;
+            animation: cursorBlink 0.7s step-end infinite;
+        }
+        @keyframes cursorBlink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* 按钮 */
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 28px;
+            border-radius: 50px;
+            font-size: 1.05em;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #e8a0bf, #d4819b);
+            color: #fff;
+            box-shadow: 0 6px 22px rgba(200, 120, 150, 0.4);
+        }
+        .btn-primary:hover {
+            box-shadow: 0 10px 30px rgba(200, 120, 150, 0.55);
+            transform: translateY(-3px) scale(1.03);
+        }
+        .btn-primary:active {
+            transform: scale(0.96);
+            box-shadow: 0 4px 14px rgba(200, 120, 150, 0.35);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.7);
+            color: #c75b7a;
+            border: 2px solid #e8c0d0;
+            box-shadow: 0 4px 14px rgba(180, 130, 150, 0.12);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: #d4819b;
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 24px rgba(180, 130, 150, 0.22);
+        }
+        .btn-secondary:active {
+            transform: scale(0.96);
+        }
+
+        /* 散落小装饰 */
+        .sparkle {
+            position: absolute;
+            pointer-events: none;
+            font-size: 20px;
+            animation: sparkleFloat 3s ease-in-out infinite;
+            opacity: 0.7;
+            z-index: 0;
+        }
+        @keyframes sparkleFloat {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateY(-22px) rotate(18deg);
+                opacity: 0.9;
+            }
+        }
+
+        /* 响应式 */
         @media (max-width: 600px) {
-            .card-body {
-                padding: 30px 18px 28px;
+            .card {
+                padding: 35px 22px 30px;
+                border-radius: 22px;
             }
-            .title-main {
-                font-size: 1.7rem;
+            .title {
+                font-size: 1.9em;
             }
-            .message-block {
-                font-size: 0.94rem;
-                line-height: 1.85;
+            .flower-bouquet {
+                font-size: 50px;
             }
-            .message-block p {
-                text-indent: 1.5em;
+            .message {
+                font-size: 1.05em;
+                line-height: 1.8;
             }
-            .envelope-flap {
-                height: 68px;
-                border-radius: 16px 16px 0 0;
-            }
-            .card-envelope {
-                border-radius: 16px 16px 20px 20px;
-            }
-            .card-body {
-                border-radius: 0 0 20px 20px;
-            }
-            .flap-triangle {
-                bottom: -22px;
-                border-left-width: 28px;
-                border-right-width: 28px;
-                border-top-width: 24px;
-            }
-            .seal-heart {
-                bottom: -18px;
-                width: 40px;
-                height: 40px;
-            }
-            .seal-heart span {
-                font-size: 18px;
+            .btn {
+                padding: 11px 22px;
+                font-size: 0.95em;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- 花瓣飘落容器 -->
-    <div class="petals-container" id="petalsContainer" aria-hidden="true"></div>
+    <!-- 花瓣飘落画布 -->
+    <canvas id="petalsCanvas"></canvas>
 
-    <!-- 主卡片 -->
-    <div class="main-wrapper">
-        <div class="card-envelope">
-            <!-- 信封顶盖 -->
-            <div class="envelope-flap">
-                <div class="flap-triangle"></div>
-                <div class="seal-heart" id="sealHeart" title="点击拆开祝福">
-                    <span>❤</span>
-                </div>
+    <!-- 主内容 -->
+    <div class="main-container">
+        <div class="card" id="card">
+            <!-- 散落小星星装饰 -->
+            <span class="sparkle" style="top:8%;left:8%;animation-delay:0s;">✨</span>
+            <span class="sparkle" style="top:12%;right:10%;animation-delay:0.8s;">🌸</span>
+            <span class="sparkle" style="bottom:18%;left:12%;animation-delay:1.6s;">💫</span>
+            <span class="sparkle" style="bottom:10%;right:14%;animation-delay:2.2s;">🌷</span>
+            <span class="sparkle" style="top:40%;left:5%;animation-delay:0.4s;font-size:15px;">🌟</span>
+            <span class="sparkle" style="top:45%;right:6%;animation-delay:2.8s;font-size:16px;">💖</span>
+
+            <!-- 花束 -->
+            <div class="flower-bouquet">💐</div>
+
+            <!-- 标题 -->
+            <h1 class="title">
+                母亲节<span class="accent">❤️</span>快乐
+            </h1>
+            <p class="subtitle">—— 致世界上最好的妈妈 ——</p>
+
+            <!-- 分割线 -->
+            <div class="divider">
+                <span class="line"></span><span class="dot"></span><span class="line"></span>
             </div>
 
-            <!-- 卡片内容 -->
-            <div class="card-body">
-                <div class="subtitle-tag">✿ 母亲节 · 2026 ✿</div>
-                <h1 class="title-main">妈妈，节日快乐</h1>
-                <p class="title-sub">—— 您永远的儿子</p>
-                <div class="divider"></div>
+            <!-- 祝福语 -->
+            <div class="message">
+                <span class="typewriter-line" id="line1"></span>
+                <span class="typewriter-line" id="line2"></span>
+                <span class="typewriter-line" id="line3"></span>
+            </div>
+            <p class="message" style="margin-top:4px;">
+                <span class="highlight">妈妈，您辛苦了！</span><br>
+                愿时光温柔，岁月长留<br>
+                愿您永远健康、幸福、美丽 💕
+            </p>
 
-                <div class="message-block">
-                    <p>
-                        妈，今天是母亲节。我坐在窗前写下这些话，窗外有风吹过，像极了小时候您轻轻拍我入睡时的那阵温柔。
-                    </p>
-                    <p>
-                        我还记得，小时候每到冬天，您总会提前把我的棉被烘得暖暖的；我发烧的夜晚，您整宿不睡，用温水毛巾一遍遍擦我的额头。<span class="highlight">您的掌心，是我认识世界之前，最先感受到的温度。</span>
-                    </p>
-                    <span class="memory-line">
-                        🌙 那年我七岁，半夜做噩梦哭着醒来，是您把我搂进怀里，哼着不成调的歌，一直到我重新睡着。那个怀抱，我记了一辈子。
-                    </span>
-                    <p>
-                        如今我长大了，走得远了，可每次推开家门，闻到厨房里飘来的饭菜香，我就知道——<span class="highlight">无论我走得多远，您的爱一直是我最安稳的归处。</span>
-                    </p>
-                    <p>
-                        妈，您总说自己没做什么了不起的事。可在我眼里，您把平凡的日子熬成了光，把一蔬一饭变成了最踏实的幸福。您教我善良，教我坚韧，更用一生的操劳告诉我：爱，就是把最好的都留给爱的人。
-                    </p>
-                    <span class="memory-line">
-                        🍜 高中晚自习后，无论多冷多晚，您总在路灯下等我。手里要么捧着一碗热汤，要么揣着一个暖水袋。同学们都羡慕地说："你妈真好。"我总是骄傲地点头。
-                    </span>
-                    <p>
-                        以前是您牵着我的手走过每一条路，<span class="highlight">往后换我来守护您。</span>愿时光对您温柔一些，愿您少一些操劳，多一些笑容。您值得这世间所有的美好。
-                    </p>
-                    <p>
-                        妈，母亲节快乐。不是只有今天才爱您，只是今天想特别认真地告诉您——<span class="highlight">做您的儿子，是我这辈子最大的幸运。</span>
-                    </p>
-                </div>
-
-                <div class="signature">
-                    爱您的儿子&nbsp;<span class="heart-icon">❤</span>
-                </div>
-
-                <div class="bottom-decor">
-                    🌸 🌷 🌼 🌺
-                </div>
+            <!-- 按钮 -->
+            <div class="btn-row">
+                <button class="btn btn-primary" onclick="sendLove()">
+                    💌 给妈妈一个拥抱
+                </button>
+                <button class="btn btn-secondary" onclick="playMusic()">
+                    🎵 播放温馨旋律
+                </button>
             </div>
         </div>
     </div>
 
+    <!-- 隐藏的音频 -->
+    <audio id="bgMusic" loop preload="none">
+        <!-- 使用公共域免费音频，若无网络则静默 -->
+        <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_c6c8f33e27.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
-        (function() {
-            // ---- 创建花瓣 ----
-            const petalsContainer = document.getElementById('petalsContainer');
-            const petalColors = [
-                '#f4c8d5', '#f9d8e3', '#fce4ec', '#f0c4d0',
-                '#fbe0e8', '#f5ccd8', '#fde8ef', '#f2bfcd',
-                '#fad4df', '#fef0f4', '#f7d0db', '#fce6ed'
-            ];
+        // ==================== 花瓣画布 ====================
+        const canvas = document.getElementById('petalsCanvas');
+        const ctx = canvas.getContext('2d');
 
-            function createPetal() {
-                const petal = document.createElement('div');
-                petal.classList.add('petal');
-                const size = Math.random() * 14 + 10;
-                petal.style.width = size + 'px';
-                petal.style.height = size * 1.3 + 'px';
-                petal.style.left = Math.random() * 100 + '%';
-                petal.style.backgroundColor = petalColors[Math.floor(Math.random() * petalColors.length)];
-                petal.style.animationDuration = (Math.random() * 8 + 10) + 's';
-                petal.style.animationDelay = Math.random() * 5 + 's';
-                // 随机选动画类型
-                if (Math.random() > 0.5) {
-                    petal.style.animationName = 'fallB';
-                }
-                petal.style.borderRadius = '50% 0 50% 50%';
-                petalsContainer.appendChild(petal);
+        let petals = [];
+        const maxPetals = 55;
 
-                // 动画结束后清除
-                const totalDuration = parseFloat(petal.style.animationDuration) + parseFloat(petal.style
-                    .animationDelay);
-                setTimeout(() => {
-                    if (petal.parentNode) {
-                        petal.parentNode.removeChild(petal);
-                    }
-                }, totalDuration * 1000 + 500);
-            }
-
-            // 初始生成一批花瓣
-            for (let i = 0; i < 25; i++) {
-                setTimeout(() => createPetal(), i * 180);
-            }
-
-            // 持续生成
-            setInterval(() => {
-                if (petalsContainer.children.length < 40) {
-                    createPetal();
-                }
-            }, 900);
-
-            // ---- 火漆印章点击效果 ----
-            const sealHeart = document.getElementById('sealHeart');
-            sealHeart.addEventListener('click', function(e) {
-                // 点击时额外撒落花瓣
-                for (let i = 0; i < 8; i++) {
-                    setTimeout(() => createPetal(), i * 50);
-                }
-                // 轻微弹跳动画
-                sealHeart.style.transition = 'transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                sealHeart.style.transform = 'translateX(-50%) scale(1.25)';
-                setTimeout(() => {
-                    sealHeart.style.transform = 'translateX(-50%) scale(0.9)';
-                    setTimeout(() => {
-                        sealHeart.style.transform = 'translateX(-50%) scale(1)';
-                    }, 150);
-                }, 150);
-
-                // 也可以触发一个温馨的小提示（可选）
-                // 这里不弹窗，保持优雅
-                console.log('💌 妈妈，祝您母亲节快乐！');
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            // 重新初始化花瓣位置范围
+            petals.forEach(p => {
+                if (p.x > canvas.width) p.x = Math.random() * canvas.width;
+                if (p.y > canvas.height) p.y = Math.random() * canvas.height;
             });
+        });
 
-            // ---- 移动端触摸优化 ----
-            sealHeart.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                sealHeart.click();
-            }, { passive: false });
+        // 花瓣颜色：粉色、浅粉、玫瑰色、白色
+        const petalColors = [
+            '#f4c2d7', '#f8d4e4', '#fadde8', '#fbe8ef',
+            '#e8a0bf', '#f0b8cf', '#fce4ec', '#fff0f3',
+            '#ffd6e0', '#ffe0e8', '#f9e0ea', '#f5d5e2'
+        ];
 
-            console.log('🌸 妈妈，母亲节快乐！愿岁月温柔以待。');
-            console.log('💕 从儿子视角，写给世界上最棒的妈妈。');
-        })();
+        class Petal {
+            constructor() {
+                this.reset(true);
+            }
+            reset(initial = false) {
+                this.x = Math.random() * canvas.width;
+                this.y = initial ? Math.random() * canvas.height : -30 - Math.random() * 80;
+                this.size = 8 + Math.random() * 16;
+                this.speedY = 0.6 + Math.random() * 2.2;
+                this.speedX = -0.6 + Math.random() * 1.2;
+                this.wobble = Math.random() * Math.PI * 2;
+                this.wobbleSpeed = 0.01 + Math.random() * 0.04;
+                this.wobbleAmp = 0.3 + Math.random() * 1.2;
+                this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
+                this.opacity = 0.5 + Math.random() * 0.5;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotSpeed = (Math.random() - 0.5) * 0.03;
+                this.shape = Math.random(); // 0-0.5椭圆花瓣, 0.5-1心形花瓣
+            }
+            update() {
+                this.y += this.speedY;
+                this.wobble += this.wobbleSpeed;
+                this.x += this.speedX + Math.sin(this.wobble) * this.wobbleAmp;
+                this.rotation += this.rotSpeed;
+                if (this.y > canvas.height + 50) {
+                    this.reset(false);
+                    this.y = -30 - Math.random() * 40;
+                    this.x = Math.random() * canvas.width;
+                }
+                if (this.x < -40) this.x = canvas.width + 30;
+                if (this.x > canvas.width + 40) this.x = -30;
+            }
+            draw(ctx) {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                if (this.shape < 0.55) {
+                    // 椭圆花瓣形状
+                    ctx.ellipse(0, 0, this.size * 0.55, this.size * 0.3, 0, 0, Math.PI * 2);
+                } else {
+                    // 小爱心花瓣
+                    const s = this.size * 0.5;
+                    ctx.moveTo(0, -s * 0.3);
+                    ctx.bezierCurveTo(-s * 0.5, -s, -s, s * 0.3, 0, s);
+                    ctx.bezierCurveTo(s, s * 0.3, s * 0.5, -s, 0, -s * 0.3);
+                }
+                ctx.fill();
+                // 轻微高光
+                ctx.fillStyle = 'rgba(255,255,255,0.35)';
+                ctx.beginPath();
+                ctx.ellipse(-this.size * 0.12, -this.size * 0.08, this.size * 0.15, this.size * 0.08,
+                    0.3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // 初始化花瓣
+        for (let i = 0; i < maxPetals; i++) {
+            petals.push(new Petal());
+        }
+
+        function animatePetals() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            petals.forEach(p => {
+                p.update();
+                p.draw(ctx);
+            });
+            requestAnimationFrame(animatePetals);
+        }
+        animatePetals();
+
+        // ==================== 打字机效果 ====================
+        const lines = [
+            { el: document.getElementById('line1'), text: '亲爱的妈妈，感谢您给予我生命，', speed: 55 },
+            { el: document.getElementById('line2'), text: '用无尽的爱陪伴我走过每一个春夏秋冬。', speed: 50 },
+            { el: document.getElementById('line3'), text: '在这个特别的日子里，我想对您说……', speed: 52 },
+        ];
+
+        let currentLineIndex = 0;
+        let charIndex = 0;
+        let isTyping = false;
+
+        function typeNextChar() {
+            if (currentLineIndex >= lines.length) return;
+            const line = lines[currentLineIndex];
+            if (charIndex < line.text.length) {
+                line.el.textContent = line.text.substring(0, charIndex + 1);
+                // 添加光标
+                if (charIndex < line.text.length - 1) {
+                    line.el.innerHTML = line.text.substring(0, charIndex + 1) +
+                        '<span class="cursor"></span>';
+                } else {
+                    line.el.innerHTML = line.text.substring(0, charIndex + 1);
+                }
+                charIndex++;
+                const delay = line.speed + (Math.random() - 0.5) * 30;
+                setTimeout(typeNextChar, delay);
+            } else {
+                // 当前行完成，去除光标
+                line.el.innerHTML = line.text;
+                charIndex = 0;
+                currentLineIndex++;
+                if (currentLineIndex < lines.length) {
+                    setTimeout(typeNextChar, 350);
+                } else {
+                    // 全部打完，最后一行加一个闪烁小光标然后消失
+                    const lastEl = lines[lines.length - 1].el;
+                    lastEl.innerHTML = lines[lines.length - 1].text +
+                        '<span class="cursor" style="animation: cursorBlink 0.7s step-end infinite 3;"></span>';
+                    setTimeout(() => {
+                        lastEl.innerHTML = lines[lines.length - 1].text;
+                    }, 2100);
+                }
+            }
+        }
+
+        // 页面加载后稍作延迟开始打字
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(typeNextChar, 600);
+        });
+
+        // ==================== 按钮交互 ====================
+        function sendLove() {
+            const btn = document.querySelector('.btn-primary');
+            const originalText = btn.textContent;
+            btn.textContent = '💗 拥抱已送达！';
+            btn.style.background = 'linear-gradient(135deg, #f0b8cf, #e8879e)';
+            btn.style.transform = 'scale(1.08)';
+            // 绽放一波花瓣
+            burstPetals();
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = 'linear-gradient(135deg, #e8a0bf, #d4819b)';
+                btn.style.transform = '';
+            }, 2200);
+        }
+
+        function burstPetals() {
+            const burstCount = 20;
+            for (let i = 0; i < burstCount; i++) {
+                const p = new Petal();
+                p.x = canvas.width / 2 + (Math.random() - 0.5) * 200;
+                p.y = canvas.height / 2 + (Math.random() - 0.5) * 100;
+                p.speedY = -2 - Math.random() * 5;
+                p.speedX = (Math.random() - 0.5) * 6;
+                p.size = 10 + Math.random() * 18;
+                p.opacity = 0.8;
+                p.wobbleAmp = 1.5 + Math.random() * 2;
+                petals.push(p);
+                // 限制总量
+                if (petals.length > maxPetals + 60) {
+                    petals.shift();
+                }
+            }
+        }
+
+        function playMusic() {
+            const audio = document.getElementById('bgMusic');
+            const btn = document.querySelector('.btn-secondary');
+            if (audio.paused) {
+                audio.play().then(() => {
+                    btn.innerHTML = '🎶 旋律播放中...';
+                    btn.style.borderColor = '#d4819b';
+                    btn.style.color = '#d4819b';
+                }).catch(() => {
+                    // 自动播放被阻止，静默处理
+                    btn.innerHTML = '🔇 请点击页面后再试';
+                    setTimeout(() => {
+                        btn.innerHTML = '🎵 播放温馨旋律';
+                        btn.style.borderColor = '#e8c0d0';
+                        btn.style.color = '#c75b7a';
+                    }, 1800);
+                });
+            } else {
+                audio.pause();
+                audio.currentTime = 0;
+                btn.innerHTML = '🎵 播放温馨旋律';
+                btn.style.borderColor = '#e8c0d0';
+                btn.style.color = '#c75b7a';
+            }
+        }
+
+        // 用户首次交互后尝试自动播放
+        document.addEventListener('click', function autoPlayOnce() {
+            const audio = document.getElementById('bgMusic');
+            if (audio.paused && audio.currentTime === 0) {
+                audio.play().catch(() => {});
+            }
+        }, { once: true });
+
+        // ==================== 卡片悬停微交互 ====================
+        const card = document.getElementById('card');
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -3;
+            const rotateY = ((x - centerX) / centerX) * 3;
+            card.style.transform =
+                `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            card.style.transition = 'transform 0.15s ease-out';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0)';
+            card.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
+        });
+
+        // ==================== 控制台彩蛋 ====================
+        console.log('%c🌸 母亲节快乐！%c 愿天下所有妈妈都被时光温柔以待 💕',
+            'font-size:22px;color:#c75b7a;', 'font-size:14px;color:#8b6b7a;');
+        console.log('%c  感谢您打开这个页面，记得给妈妈打个电话哦~ 📞',
+            'font-size:13px;color:#b07a8c;');
     </script>
 </body>
 </html>
